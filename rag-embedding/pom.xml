@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.landray.rag</groupId>
+        <artifactId>rag-platform</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+    </parent>
+    <artifactId>rag-embedding</artifactId>
+    <name>RAG Embedding</name>
+    <description>向量化模块 - DJL + ONNX JVM内推理，单机QPS 800+</description>
+    <dependencies>
+        <dependency>
+            <groupId>com.landray.rag</groupId>
+            <artifactId>rag-common</artifactId>
+        </dependency>
+        <!-- Phase 3 引入 DJL
+        <dependency>
+            <groupId>ai.djl</groupId>
+            <artifactId>api</artifactId>
+            <version>0.27.0</version>
+        </dependency>
+        <dependency>
+            <groupId>ai.djl.onnxruntime</groupId>
+            <artifactId>onnxruntime-engine</artifactId>
+            <version>0.27.0</version>
+        </dependency>
+        -->
+        <!-- HTTP Client 用于调用远程 Embedding API（Phase 0 临时方案） -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-webflux</artifactId>
+        </dependency>
+    </dependencies>
+</project>

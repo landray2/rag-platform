@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.landray.rag</groupId>
+        <artifactId>rag-platform</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+    </parent>
+    <artifactId>rag-engine</artifactId>
+    <name>RAG Engine</name>
+    <description>RAG编排引擎 - 检索增强生成 + LLM调用 + Prompt管理</description>
+    <dependencies>
+        <dependency>
+            <groupId>com.landray.rag</groupId>
+            <artifactId>rag-common</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.landray.rag</groupId>
+            <artifactId>rag-search</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.landray.rag</groupId>
+            <artifactId>rag-embedding</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <!-- LangChain4j（Phase 6 引入）
+        <dependency>
+            <groupId>dev.langchain4j</groupId>
+            <artifactId>langchain4j</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>dev.langchain4j</groupId>
+            <artifactId>langchain4j-open-ai</artifactId>
+        </dependency>
+        -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-webflux</artifactId>
+        </dependency>
+    </dependencies>
+</project>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.landray.rag</groupId>
+        <artifactId>rag-platform</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+    </parent>
+    <artifactId>rag-parser</artifactId>
+    <name>RAG Parser</name>
+    <description>文档解析模块 - Apache Tika + 虚拟线程 + NIO零拷贝</description>
+    <dependencies>
+        <dependency>
+            <groupId>com.landray.rag</groupId>
+            <artifactId>rag-common</artifactId>
+        </dependency>
+        <!-- Apache Tika 依赖 - Day 4 文档解析时启用（包较大，暂时注释）
+        <dependency>
+            <groupId>org.apache.tika</groupId>
+            <artifactId>tika-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.tika</groupId>
+            <artifactId>tika-parsers-standard-package</artifactId>
+        </dependency>
+        -->
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+        </dependency>
+    </dependencies>
+</project>
