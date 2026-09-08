@@ -15,30 +15,38 @@
     <description>Web启动模块 - Spring Boot主程序，开启虚拟线程</description>
 
     <dependencies>
-        <!-- 内部模块 -->
+        <!-- 内部模块（按依赖顺序） -->
         <dependency>
             <groupId>com.landray.rag</groupId>
             <artifactId>rag-common</artifactId>
         </dependency>
         <dependency>
             <groupId>com.landray.rag</groupId>
-            <artifactId>rag-engine</artifactId>
-            <version>${project.version}</version>
+            <artifactId>rpc-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.landray.rag</groupId>
+            <artifactId>rag-gateway</artifactId>
         </dependency>
         <dependency>
             <groupId>com.landray.rag</groupId>
             <artifactId>rag-parser</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.landray.rag</groupId>
-            <artifactId>rag-search</artifactId>
-            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>com.landray.rag</groupId>
             <artifactId>rag-embedding</artifactId>
-            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.landray.rag</groupId>
+            <artifactId>rag-search</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.landray.rag</groupId>
+            <artifactId>rag-memory</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.landray.rag</groupId>
+            <artifactId>rag-engine</artifactId>
         </dependency>
 
         <!-- Spring Boot Web -->
@@ -61,6 +69,18 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-validation</artifactId>
+        </dependency>
+
+        <!-- MyBatis Plus -->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-spring-boot3-starter</artifactId>
+        </dependency>
+
+        <!-- Druid -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid-spring-boot-3-starter</artifactId>
         </dependency>
 
         <!-- Spring Boot Test -->

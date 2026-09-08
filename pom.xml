@@ -14,11 +14,14 @@
     <!-- 子模块 -->
     <modules>
         <module>rag-common</module>
-        <module>rag-web</module>
-        <module>rag-engine</module>
+        <module>rpc-core</module>
+        <module>rag-gateway</module>
         <module>rag-parser</module>
-        <module>rag-search</module>
         <module>rag-embedding</module>
+        <module>rag-search</module>
+        <module>rag-memory</module>
+        <module>rag-engine</module>
+        <module>rag-web</module>
     </modules>
 
     <!-- 版本统一管理 -->
@@ -28,19 +31,36 @@
         <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
+        <!-- Spring Boot -->
         <spring-boot.version>3.2.5</spring-boot.version>
+        <spring-cloud.version>2023.0.1</spring-cloud.version>
+
+        <!-- AI / RAG -->
         <langchain4j.version>0.33.0</langchain4j.version>
         <milvus-sdk.version>2.4.4</milvus-sdk.version>
+        <djl.version>0.31.1</djl.version>
+
+        <!-- 存储 -->
         <mybatis-plus.version>3.5.6</mybatis-plus.version>
         <druid.version>1.2.22</druid.version>
+        <redisson.version>3.32.0</redisson.version>
+
+        <!-- 工具 -->
         <hutool.version>5.8.27</hutool.version>
         <lombok.version>1.18.48</lombok.version>
         <fastjson2.version>2.0.49</fastjson2.version>
         <commons-io.version>2.16.1</commons-io.version>
         <tika.version>2.9.2</tika.version>
+
+        <!-- RPC -->
+        <netty.version>4.1.109.Final</netty.version>
+        <kryo.version>5.6.0</kryo.version>
+
+        <!-- 消息队列 -->
+        <amqp.version>3.2.2</amqp.version>
     </properties>
 
-    <!-- 依赖版本声明（不引入实际依赖，由子模块按需引入） -->
+    <!-- 依赖版本声明 -->
     <dependencyManagement>
         <dependencies>
             <!-- Spring Boot BOM -->
@@ -48,6 +68,15 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
                 <version>${spring-boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <!-- Spring Cloud BOM -->
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -61,13 +90,49 @@
                 <scope>import</scope>
             </dependency>
 
-            <!-- 内部模块 -->
+            <!-- === 内部模块 === -->
             <dependency>
                 <groupId>com.landray.rag</groupId>
                 <artifactId>rag-common</artifactId>
                 <version>${project.version}</version>
             </dependency>
+            <dependency>
+                <groupId>com.landray.rag</groupId>
+                <artifactId>rpc-core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.landray.rag</groupId>
+                <artifactId>rag-gateway</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.landray.rag</groupId>
+                <artifactId>rag-parser</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.landray.rag</groupId>
+                <artifactId>rag-embedding</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.landray.rag</groupId>
+                <artifactId>rag-search</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.landray.rag</groupId>
+                <artifactId>rag-memory</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.landray.rag</groupId>
+                <artifactId>rag-engine</artifactId>
+                <version>${project.version}</version>
+            </dependency>
 
+            <!-- === AI / RAG === -->
             <!-- Milvus SDK -->
             <dependency>
                 <groupId>io.milvus</groupId>
@@ -75,6 +140,19 @@
                 <version>${milvus-sdk.version}</version>
             </dependency>
 
+            <!-- DJL (Deep Java Library) -->
+            <dependency>
+                <groupId>ai.djl</groupId>
+                <artifactId>api</artifactId>
+                <version>${djl.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>ai.djl.onnxruntime</groupId>
+                <artifactId>onnxruntime-engine</artifactId>
+                <version>${djl.version}</version>
+            </dependency>
+
+            <!-- === 存储 === -->
             <!-- MyBatis Plus -->
             <dependency>
                 <groupId>com.baomidou</groupId>
@@ -82,14 +160,44 @@
                 <version>${mybatis-plus.version}</version>
             </dependency>
 
-            <!-- Druid 数据源 -->
+            <!-- Druid -->
             <dependency>
                 <groupId>com.alibaba</groupId>
                 <artifactId>druid-spring-boot-3-starter</artifactId>
                 <version>${druid.version}</version>
             </dependency>
 
-            <!-- Hutool 工具包 -->
+            <!-- Redisson (Redis 客户端) -->
+            <dependency>
+                <groupId>org.redisson</groupId>
+                <artifactId>redisson-spring-boot-starter</artifactId>
+                <version>${redisson.version}</version>
+            </dependency>
+
+            <!-- === RPC === -->
+            <!-- Netty -->
+            <dependency>
+                <groupId>io.netty</groupId>
+                <artifactId>netty-all</artifactId>
+                <version>${netty.version}</version>
+            </dependency>
+
+            <!-- Kryo 序列化 -->
+            <dependency>
+                <groupId>com.esotericsoftware</groupId>
+                <artifactId>kryo</artifactId>
+                <version>${kryo.version}</version>
+            </dependency>
+
+            <!-- === 消息队列 === -->
+            <dependency>
+                <groupId>org.springframework.amqp</groupId>
+                <artifactId>spring-rabbit</artifactId>
+                <version>${amqp.version}</version>
+            </dependency>
+
+            <!-- === 工具 === -->
+            <!-- Hutool -->
             <dependency>
                 <groupId>cn.hutool</groupId>
                 <artifactId>hutool-all</artifactId>
@@ -110,7 +218,7 @@
                 <version>${commons-io.version}</version>
             </dependency>
 
-            <!-- Apache Tika 文档解析 -->
+            <!-- Apache Tika -->
             <dependency>
                 <groupId>org.apache.tika</groupId>
                 <artifactId>tika-core</artifactId>
@@ -126,7 +234,6 @@
 
     <!-- 所有子模块共用的依赖 -->
     <dependencies>
-        <!-- Lombok -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
@@ -146,7 +253,6 @@
                         <source>${java.version}</source>
                         <target>${java.version}</target>
                         <encoding>UTF-8</encoding>
-                        <!-- Lombok 注解处理器配置 -->
                         <annotationProcessorPaths>
                             <path>
                                 <groupId>org.projectlombok</groupId>

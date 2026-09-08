@@ -1,5 +1,8 @@
 package com.landray.rag.engine;
 
+import com.landray.rag.common.domain.ChatRequest;
+import com.landray.rag.common.domain.ChatResponse;
+
 /**
  * RAG 编排引擎接口
  *
@@ -13,20 +16,39 @@ package com.landray.rag.engine;
 public interface RagEngine {
 
     /**
-     * 问答
+     * 问答（完整版，含检索引用、耗时统计）
      *
-     * @param userId  用户ID（用于个性化记忆）
-     * @param question 用户问题
-     * @return 回答
+     * @param request 聊天请求
+     * @return 聊天响应
      */
-    String chat(String userId, String question);
+    ChatResponse chat(ChatRequest request);
+
+    /**
+     * 问答（简化版，仅返回回答文本）
+     */
+    default String chat(String userId, String question) {
+        ChatRequest request = ChatRequest.builder()
+                .userId(userId)
+                .question(question)
+                .sessionId("session_" + userId)
+                .build();
+        return chat(request).getAnswer();
+    }
 
     /**
      * 流式问答（SSE）
-     *
-     * @param userId   用户ID
-     * @param question 用户问题
-     * @return 流式输出
      */
-    String chatStream(String userId, String question);
+    String chatStream(ChatRequest request);
+
+    /**
+     * 流式问答（简化版）
+     */
+    default String chatStream(String userId, String question) {
+        ChatRequest request = ChatRequest.builder()
+                .userId(userId)
+                .question(question)
+                .sessionId("session_" + userId)
+                .build();
+        return chatStream(request);
+    }
 }

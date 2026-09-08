@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.landray.rag</groupId>
+        <artifactId>rag-platform</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+    </parent>
+    <artifactId>rag-memory</artifactId>
+    <name>RAG Memory</name>
+    <!--
+        ⚠️ MEMORY 架构说明：
+        本模块为用户记忆层，接口已全部定义，但实现留空（STUB）。
+        后续可能更换存储介质（Redis → MySQL → 向量库）、
+        或新增记忆算法（遗忘曲线 / 重要性权重 / 结构化记忆）。
+        所有 Memory 接口均独立于具体存储，方便替换架构。
+        详细标注见各接口文件的 ⚠️ ARCHITECTURE NOTE 注释。
+    -->
+    <description>用户记忆层 - Persona / Working / Episodic Memory（架构预留，实现待补）</description>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.landray.rag</groupId>
+            <artifactId>rag-common</artifactId>
+        </dependency>
+
+        <!-- 存储实现时按需引入，当前仅留接口 -->
+        <!-- Redisson: <dependency><groupId>org.redisson</groupId><artifactId>redisson-spring-boot-starter</artifactId></dependency> -->
+        <!-- Milvus: <dependency><groupId>io.milvus</groupId><artifactId>milvus-sdk-java</artifactId></dependency> -->
+        <!-- MySQL:  <dependency><groupId>com.baomidou</groupId><artifactId>mybatis-plus-spring-boot3-starter</artifactId></dependency> -->
+    </dependencies>
+</project>
