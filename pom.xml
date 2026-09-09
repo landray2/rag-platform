@@ -55,6 +55,7 @@
         <!-- RPC -->
         <netty.version>4.1.109.Final</netty.version>
         <kryo.version>5.6.0</kryo.version>
+        <nacos-client.version>2.3.2</nacos-client.version>
 
         <!-- 消息队列 -->
         <amqp.version>3.2.2</amqp.version>
@@ -189,6 +190,13 @@
                 <version>${kryo.version}</version>
             </dependency>
 
+            <!-- Nacos 客户端（服务注册发现） -->
+            <dependency>
+                <groupId>com.alibaba.nacos</groupId>
+                <artifactId>nacos-client</artifactId>
+                <version>${nacos-client.version}</version>
+            </dependency>
+
             <!-- === 消息队列 === -->
             <dependency>
                 <groupId>org.springframework.amqp</groupId>
@@ -253,6 +261,9 @@
                         <source>${java.version}</source>
                         <target>${java.version}</target>
                         <encoding>UTF-8</encoding>
+                        <!-- 保留方法参数名：Spring Boot 3 的 @RequestParam/@PathVariable 省略 name 时依赖反射读参数名，
+                             RPC 反射调用、MyBatis 参数映射同样受益 -->
+                        <parameters>true</parameters>
                         <annotationProcessorPaths>
                             <path>
                                 <groupId>org.projectlombok</groupId>

@@ -30,6 +30,12 @@
             <artifactId>kryo</artifactId>
         </dependency>
 
+        <!-- Nacos 注册中心客户端 -->
+        <dependency>
+            <groupId>com.alibaba.nacos</groupId>
+            <artifactId>nacos-client</artifactId>
+        </dependency>
+
         <!-- Spring 支持（自定义注解）- 版本由 Spring Boot BOM 管理 -->
         <dependency>
             <groupId>org.springframework</groupId>
