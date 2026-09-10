@@ -22,11 +22,17 @@ public class Document {
     /** 文件名 */
     private String fileName;
 
-    /** 文件类型（pdf / docx / md / txt） */
+    /** 文件类型（pdf / docx / md / txt；多模态阶段扩展 png / jpg / 图片型 pdf 等） */
     private String fileType;
 
     /** 文件大小（字节） */
     private long fileSize;
+
+    /**
+     * 原始上传文件在 MinIO 中的对象 key（多模态预留，Phase 8.1 起填充）
+     * <p>key 规范：{kbId}/{documentId}/origin.{ext}。本地文件解析阶段可为空。</p>
+     */
+    private String blobRef;
 
     /** 所属知识库ID */
     private String knowledgeBaseId;

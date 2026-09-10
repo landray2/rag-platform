@@ -135,9 +135,10 @@ curl "http://localhost:8080/api/rpc/system-info"
 
 > 原则：先扩数据通道、后接模型；每一步都有标注集评估，与纯文本基线对比。
 
-- [ ] **Phase 8.1（M1）统一内容模型**（纯重构，无 AI 模型）
-  - `DocumentChunk` 增加 `modality` / `blobRef` / `caption` 字段；MySQL、Milvus schema 预留
-  - 接入 MinIO SDK：原始文件/图片二进制对象存储（key 规范 `{kbId}/{docId}/{assetId}`）
+- [~] **Phase 8.1（M1）统一内容模型**（纯重构，无 AI 模型）
+  - ✅ 字段预留已提前落地（Phase 1 收尾）：`Modality` 枚举（text/image/audio），`DocumentChunk` 增加 `modality`(默认 text) / `blobRef` / `caption`，`Document` 增加 `blobRef`
+  - [ ] 接入 MinIO SDK：原始文件/图片二进制对象存储（key 规范 `{kbId}/{docId}/{assetId}`）
+  - [ ] MySQL、Milvus schema 增加 modality 列（建表/建 collection 时一次性带上）
   - 验收：文本链路行为逐字节不变（全部 modality=text），回归测试全绿
 - [ ] **Phase 8.2（M2）图片摄入 + OCR**
   - 图片型 PDF/扫描件渲染抽图，DJL 加载 OCR ONNX（保持 Java 全链路）
