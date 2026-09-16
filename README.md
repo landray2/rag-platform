@@ -37,7 +37,8 @@ rag-platform/
 ├── rag-embedding/  # 向量化：DJL+ONNX 文本 Embedding（Phase 3）→ CLIP 图文双塔（Phase 8）
 ├── rag-search/     # 检索：Milvus + LRU 缓存 + 混合排序 + Rerank（Phase 5/8）
 ├── rag-memory/     # 用户记忆层：Persona/Working/Episodic（接口已预留，Phase 7）
-├── rag-engine/     # RAG 编排引擎：检索 → 组装 Prompt → LLM（Phase 6）
+├── rag-engine/     # RAG 编排引擎：检索 → 组装 Prompt → LLM（Phase 6，Phase 9 后兼作快速通道）
+├── rag-agent/      # 【规划，Phase 9】Agent 层：Tool 注册表/ReAct 主循环/Planner/多智能体
 └── rag-web/        # Web 启动模块：Spring Boot 主程序、Controller、RPC Demo
 ```
 
@@ -157,8 +158,26 @@ curl "http://localhost:8080/api/rpc/system-info"
   - 批量图像推理 + 预处理并行（虚拟线程）、图像 embedding 独立限流
   - MinIO/Milvus/MySQL 三存储一致删除与补偿；图文混合 QPS/P99 压测
 
+### Phase 9：Agentic RAG（文本主链路验收 + 记忆层之后启动）
+
+> 目标：控制流从"程序员写死的流水线"演进为"LLM 运行时动态决策"。
+> 现有模块零重写——检索/记忆/多模态能力包装成 Tool，多智能体通信用自研 RPC。
+> 完整设计见 [docs/architecture-agentic-target.md](docs/architecture-agentic-target.md)。
+
+- [ ] **Phase 9.1 工具化 + 单 Agent**
+  - 新增 rag-agent 模块：`Tool`/`ToolRegistry`/`ToolResult` 契约 + ReAct 主循环 + 护栏（轮次/循环检测/schema/token 预算）
+  - rag-search 包成 `knowledge_search`，加 2~3 个内置工具；AgentTrace 全链路步骤可观测（SSE）
+- [ ] **Phase 9.2 CRAG 纠错式 RAG + 双通道**
+  - Router 分流：简单问题走 rag-engine Pipeline 快速通道，复杂问题进 Agent 循环
+  - 检索质量评估 → query 改写重检/反问；用标注集对比 Phase 6 基线
+- [ ] **Phase 9.3 多智能体协作**
+  - Planner 任务拆分；Retriever/Writer/Critic 拆为独立 Agent 服务，经 rpc-core + Nacos 互调
+  - Critic 打回重写闭环；多跳问题准确率 + Agent 间 RPC 延迟压测
+- [ ] **Phase 9.4（可选）多智能体 × 多模态合流**：`multimodal_search` 作为工具接入，Agent 自主决定图文检索比例
+
 ## 文档
 
+- [docs/architecture-agentic-target.md](docs/architecture-agentic-target.md)：终局架构——Pipeline RAG → Agentic RAG（模块映射图、rag-agent 结构、接口约束、Phase 9 拆分）
 - [docs/phase1-rpc-interview.md](docs/phase1-rpc-interview.md)：Phase 1 RPC 面试问题标注（16 题 + 踩坑复盘 + Dubbo 对比）
 
 ## License
